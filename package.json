@@ -1,0 +1,43 @@
+{
+  "name": "@am92/jose-crypto",
+  "version": "1.0.0",
+  "description": "JOSE Cryptography",
+  "type": "module",
+  "main": "src/index.mjs",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git@github.com:heliumtank92/am92-jose-crypto.git",
+  "homepage": "https://github.com/heliumtank92/am92-jose-crypto#readme",
+  "contributors": [
+    {
+      "name": "Ankit Gandhi",
+      "email": "ankitgandhi452@gmail.com",
+      "url": "https://github.com/ankitgandhi452"
+    },
+    {
+      "name": "Mehul Agarwal",
+      "email": "agarwalmehul92@gmail.com",
+      "url": "https://github.com/agarwalmehul"
+    }
+  ],
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.mjs",
+    "./Rsa": "./src/Rsa.mjs",
+    "./Aes256Gcm": "./src/Aes256Gcm.mjs"
+  },
+  "dependencies": {},
+  "keywords": [
+    "jose",
+    "encryption",
+    "decryption",
+    "rsa",
+    "rsa2048",
+    "aes",
+    "aes256",
+    "symmetric key",
+    "asymettric key"
+  ]
+}
