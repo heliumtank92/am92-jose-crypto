@@ -1,19 +1,20 @@
 
 import { publicEncrypt, privateDecrypt, generateKeyPairSync } from 'crypto'
 import { RSA_CONSTANTS } from './CONSTANTS'
+import {
+  INVALID_RSA_ENCRYPTION_DATA,
+  INVALID_RSA_ENCRYPTION_KEY,
+  INVALID_RSA_DECRYPTION_DATA,
+  INVALID_RSA_DECRYPTION_KEY
+} from './ERRORS.mjs'
+import JoseCryptoError from './JoseCryptoError.mjs'
 
 const {
   ALGOGRITHM,
   OPTIONS,
   KEY_OPTIONS,
   PLAIN_TEXT_FORMAT,
-  CIPHER_TEXT_FORMAT,
-  ERRORS: {
-    INVALID_ENCRYPTION_DATA,
-    INVALID_ENCRYPTION_KEY,
-    INVALID_DECRYPTION_DATA,
-    INVALID_DECRYPTION_KEY
-  }
+  CIPHER_TEXT_FORMAT
 } = RSA_CONSTANTS
 
 const Rsa = {
@@ -25,20 +26,18 @@ const Rsa = {
 export default Rsa
 
 async function generateKey () {
-  const source = `${ALGOGRITHM}:generateKey`
   try {
     const keyPair = generateKeyPairSync(ALGOGRITHM, KEY_OPTIONS)
     return keyPair
   } catch (error) {
-    const { msg, message, code } = error
-    throw { source, message: msg || message, code } // eslint-disable-line no-throw-literal
+    const errorCode = `JoseCrypto::RSA_${error.code}`
+    throw new JoseCryptoError(error, { errorCode })
   }
 }
 
 function encrypt (data = '', publicKey = '') {
-  const source = `${ALGOGRITHM}:encrypt`
-  _validateExistString(source, data, INVALID_ENCRYPTION_DATA)
-  _validateExistString(source, publicKey, INVALID_ENCRYPTION_KEY)
+  _validateExistString(data, INVALID_RSA_ENCRYPTION_DATA)
+  _validateExistString(publicKey, INVALID_RSA_ENCRYPTION_KEY)
 
   try {
     const pemString = derToPemString(publicKey, 'PUBLIC KEY')
@@ -49,15 +48,14 @@ function encrypt (data = '', publicKey = '') {
 
     return cipherTextString
   } catch (error) {
-    const { msg, message, code } = error
-    throw { source, message: msg || message, code } // eslint-disable-line no-throw-literal
+    const errorCode = `JoseCrypto::RSA_${error.code}`
+    throw new JoseCryptoError(error, { errorCode })
   }
 }
 
 function decrypt (payload = '', privateKey = '') {
-  const source = `${ALGOGRITHM}:decrypt`
-  _validateExistString(source, payload, INVALID_DECRYPTION_DATA)
-  _validateExistString(source, privateKey, INVALID_DECRYPTION_KEY)
+  _validateExistString(payload, INVALID_RSA_DECRYPTION_DATA)
+  _validateExistString(privateKey, INVALID_RSA_DECRYPTION_KEY)
 
   try {
     const pemString = derToPemString(privateKey, 'PRIVATE KEY')
@@ -67,15 +65,14 @@ function decrypt (payload = '', privateKey = '') {
     const data = plainTextBuffer.toString(PLAIN_TEXT_FORMAT)
     return data
   } catch (error) {
-    const { msg, message, code } = error
-    throw { source, message: msg || message, code } // eslint-disable-line no-throw-literal
+    const errorCode = `JoseCrypto::RSA_${error.code}`
+    throw new JoseCryptoError(error, { errorCode })
   }
 }
 
-function _validateExistString (source, string, errorMap) {
+function _validateExistString (string, errorMap) {
   if (typeof string !== 'string' || !string) {
-    const { message, code } = errorMap
-    throw { source, message, code } // eslint-disable-line no-throw-literal
+    throw new JoseCryptoError({}, errorMap)
   }
 }
 
