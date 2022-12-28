@@ -1,6 +1,6 @@
-import { AES_256_GCM_CONSTANTS } from './CONSTANTS.mjs'
+import { AES_CONSTANTS } from './CONSTANTS.mjs'
 
-const { KEY_STRING_LENGTH } = AES_256_GCM_CONSTANTS
+const { KEY_STRING_LENGTH } = AES_CONSTANTS
 
 const INVALID_RSA_ENCRYPTION_DATA = {
   message: 'Provided \'data\' must be a non-empty string',
