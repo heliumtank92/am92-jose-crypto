@@ -1,5 +1,5 @@
-import RSA from './Rsa.mjs'
-import Aes from './Aes.mjs'
+import RSA from './lib/Rsa.mjs'
+import Aes from './lib/Aes.mjs'
 
 const { decrypt: decryptKey, encrypt: encryptKey } = RSA
 const { decrypt: decryptData, encrypt: encryptData } = Aes

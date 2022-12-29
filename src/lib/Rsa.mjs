@@ -1,13 +1,14 @@
 
 import { publicEncrypt, privateDecrypt, generateKeyPairSync } from 'crypto'
-import { RSA_CONSTANTS } from './CONSTANTS'
+import JoseCryptoError from '../JoseCryptoError.mjs'
+
+import { RSA_CONSTANTS } from '../CONSTANTS.mjs'
 import {
   INVALID_RSA_ENCRYPTION_DATA,
   INVALID_RSA_ENCRYPTION_KEY,
   INVALID_RSA_DECRYPTION_DATA,
   INVALID_RSA_DECRYPTION_KEY
-} from './ERRORS.mjs'
-import JoseCryptoError from './JoseCryptoError.mjs'
+} from '../ERRORS.mjs'
 
 const {
   ALGOGRITHM,

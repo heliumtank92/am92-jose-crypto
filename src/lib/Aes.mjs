@@ -1,13 +1,13 @@
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto'
-import JoseCryptoError from './JoseCryptoError.mjs'
+import JoseCryptoError from '../JoseCryptoError.mjs'
 
-import { AES_CONSTANTS } from './CONSTANTS'
+import { AES_CONSTANTS } from '../CONSTANTS.mjs'
 import {
   INVALID_AES_ENCRYPTION_PARAMS,
   INVALID_AES_KEY_STRING_LENGTH,
   INVALID_AES_DECRYPTION_PARAMS,
   INVALID_AES_DECRYPTION_PAYLOAD
-} from './ERRORS.mjs'
+} from '../ERRORS.mjs'
 
 const {
   ALGORITHM,
