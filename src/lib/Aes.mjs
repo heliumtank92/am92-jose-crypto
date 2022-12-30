@@ -1,8 +1,16 @@
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto'
-import { AES_256_GCM_CONSTANTS } from './CONSTANTS'
+import JoseCryptoError from '../JoseCryptoError.mjs'
+
+import { AES_CONSTANTS } from '../CONSTANTS.mjs'
+import {
+  INVALID_AES_ENCRYPTION_PARAMS,
+  INVALID_AES_KEY_STRING_LENGTH,
+  INVALID_AES_DECRYPTION_PARAMS,
+  INVALID_AES_DECRYPTION_PAYLOAD
+} from '../ERRORS.mjs'
 
 const {
-  AES_ALGORITHM,
+  ALGORITHM,
   KEY_FORMAT,
   KEY_LENGTH,
   KEY_STRING_LENGTH,
@@ -11,22 +19,16 @@ const {
   PLAIN_TEXT_FORMAT,
   CIPHER_TEXT_FORMAT,
   AUTH_TAG_LENGTH,
-  DATA_SEPARATOR,
-  ERRORS: {
-    INVALID_ENCRYPTION_PARAMS,
-    INVALID_KEY_STRING_LENGTH,
-    INVALID_DECRYPTION_PARAMS,
-    INVALID_DECRYPTION_PAYLOAD
-  }
-} = AES_256_GCM_CONSTANTS
+  DATA_SEPARATOR
+} = AES_CONSTANTS
 
-const Aes256Gcm = {
+const Aes = {
   generateKey,
   encrypt,
   decrypt
 }
 
-export default Aes256Gcm
+export default Aes
 
 function generateKey () {
   const key = randomBytes(KEY_LENGTH).toString(KEY_FORMAT)
@@ -34,8 +36,7 @@ function generateKey () {
 }
 
 function encrypt (data, key = '') {
-  const source = `${AES_ALGORITHM}:encrypt`
-  _validateEncryptionParams(source, key)
+  _validateEncryptionParams(key)
 
   const keyBuffer = Buffer.from(key, KEY_FORMAT)
   const ivBuffer = randomBytes(IV_LENGTH)
@@ -43,7 +44,7 @@ function encrypt (data, key = '') {
   const stringifiedData = JSON.stringify({ data })
 
   try {
-    const encryptor = createCipheriv(AES_ALGORITHM, keyBuffer, ivBuffer, { authTagLength: AUTH_TAG_LENGTH })
+    const encryptor = createCipheriv(ALGORITHM, keyBuffer, ivBuffer, { authTagLength: AUTH_TAG_LENGTH })
     const cipherTextBuffer = Buffer.concat([encryptor.update(stringifiedData, PLAIN_TEXT_FORMAT), encryptor.final()])
     const cipherTextString = cipherTextBuffer.toString(CIPHER_TEXT_FORMAT)
 
@@ -53,14 +54,13 @@ function encrypt (data, key = '') {
     const payload = [ivString, authTagString, cipherTextString].join(DATA_SEPARATOR)
     return payload
   } catch (error) {
-    const { msg, message, code } = error
-    throw { source, message: msg || message, code } // eslint-disable-line no-throw-literal
+    const errorCode = `JoseCrypto::AES_${error.code}`
+    throw new JoseCryptoError(error, { errorCode })
   }
 }
 
 function decrypt (payload, key) {
-  const source = `${AES_ALGORITHM}:decrypt`
-  _validateDecryptionParams(source, key, payload)
+  _validateDecryptionParams(key, payload)
 
   const keyBuffer = Buffer.from(key, KEY_FORMAT)
   const [ivString, authTagString, cipherTextString] = payload.split(DATA_SEPARATOR)
@@ -69,7 +69,7 @@ function decrypt (payload, key) {
   const cipherTextBuffer = Buffer.from(cipherTextString, CIPHER_TEXT_FORMAT)
 
   try {
-    const decryptor = createDecipheriv(AES_ALGORITHM, keyBuffer, ivBuffer)
+    const decryptor = createDecipheriv(ALGORITHM, keyBuffer, ivBuffer)
     decryptor.setAuthTag(authTagBuffer)
 
     const plainTextBuffer = Buffer.concat([decryptor.update(cipherTextBuffer), decryptor.final()])
@@ -77,36 +77,31 @@ function decrypt (payload, key) {
     const { data } = JSON.parse(plainTextString)
     return data
   } catch (error) {
-    const { msg, message, code } = error
-    throw { source, message: msg || message, code } // eslint-disable-line no-throw-literal
+    const errorCode = `JoseCrypto::AES_${error.code}`
+    throw new JoseCryptoError(error, { errorCode })
   }
 }
 
-function _validateEncryptionParams (source = '', key) {
+function _validateEncryptionParams (key) {
   if (!key) {
-    const { message, code } = INVALID_ENCRYPTION_PARAMS
-    throw { source, message, code } // eslint-disable-line no-throw-literal
+    throw new JoseCryptoError({}, INVALID_AES_ENCRYPTION_PARAMS)
   }
 
   if (key.length !== KEY_STRING_LENGTH) {
-    const { message, code } = INVALID_KEY_STRING_LENGTH
-    throw { source, message, code } // eslint-disable-line no-throw-literal
+    throw new JoseCryptoError({}, INVALID_AES_ENCRYPTION_PARAMS)
   }
 }
 
-function _validateDecryptionParams (source = '', key, payload) {
+function _validateDecryptionParams (key, payload) {
   if (!key || !payload) {
-    const { message, code } = INVALID_DECRYPTION_PARAMS
-    throw { source, message, code } // eslint-disable-line no-throw-literal
+    throw new JoseCryptoError({}, INVALID_AES_DECRYPTION_PARAMS)
   }
 
   if (key.length !== KEY_STRING_LENGTH) {
-    const { message, code } = INVALID_KEY_STRING_LENGTH
-    throw { source, message, code } // eslint-disable-line no-throw-literal
+    throw new JoseCryptoError({}, INVALID_AES_KEY_STRING_LENGTH)
   }
 
   if (payload.split(DATA_SEPARATOR).length !== 3) {
-    const { message, code } = INVALID_DECRYPTION_PAYLOAD
-    throw { source, message, code } // eslint-disable-line no-throw-literal
+    throw new JoseCryptoError({}, INVALID_AES_DECRYPTION_PAYLOAD)
   }
 }

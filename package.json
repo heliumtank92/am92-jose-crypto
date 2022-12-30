@@ -1,9 +1,9 @@
 {
   "name": "@am92/jose-crypto",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "JOSE Cryptography",
   "type": "module",
-  "main": "src/index.mjs",
+  "main": "src/JoseCrypto.mjs",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,9 +24,7 @@
   ],
   "license": "MIT",
   "exports": {
-    ".": "./src/index.mjs",
-    "./Rsa": "./src/Rsa.mjs",
-    "./Aes256Gcm": "./src/Aes256Gcm.mjs"
+    ".": "./src/JoseCrypto.mjs"
   },
   "dependencies": {},
   "keywords": [
