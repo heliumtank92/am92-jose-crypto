@@ -1,12 +1,11 @@
 {
   "name": "@am92/jose-crypto",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "JOSE Cryptography",
   "type": "module",
   "main": "src/JoseCrypto.mjs",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": "git@github.com:heliumtank92/am92-jose-crypto.git",
   "homepage": "https://github.com/heliumtank92/am92-jose-crypto#readme",
@@ -27,6 +26,12 @@
     ".": "./src/JoseCrypto.mjs"
   },
   "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "babel-jest": "^29.3.1",
+    "jest": "^29.3.1"
+  },
   "keywords": [
     "jose",
     "encryption",
