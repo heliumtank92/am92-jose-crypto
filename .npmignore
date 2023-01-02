@@ -11,4 +11,7 @@ node_modules/
 Thumbs.db
 
 # Tests
+tests/
 coverage/
+.babelrc
+jest.config.js
