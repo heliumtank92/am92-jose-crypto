@@ -4,10 +4,10 @@ import JoseCryptoError from '../JoseCryptoError.mjs'
 
 import { RSA_CONSTANTS } from '../CONSTANTS.mjs'
 import {
-  INVALID_RSA_ENCRYPTION_DATA,
-  INVALID_RSA_ENCRYPTION_KEY,
-  INVALID_RSA_DECRYPTION_DATA,
-  INVALID_RSA_DECRYPTION_KEY
+  INVALID_RSA_ENCRYPTION_DATA_ERROR,
+  INVALID_RSA_ENCRYPTION_KEY_ERROR,
+  INVALID_RSA_DECRYPTION_DATA_ERROR,
+  INVALID_RSA_DECRYPTION_KEY_ERROR
 } from '../ERRORS.mjs'
 
 const {
@@ -37,8 +37,8 @@ async function generateKey () {
 }
 
 function encrypt (data = '', publicKey = '') {
-  _validateExistString(data, INVALID_RSA_ENCRYPTION_DATA)
-  _validateExistString(publicKey, INVALID_RSA_ENCRYPTION_KEY)
+  _validateExistString(data, INVALID_RSA_ENCRYPTION_DATA_ERROR)
+  _validateExistString(publicKey, INVALID_RSA_ENCRYPTION_KEY_ERROR)
 
   try {
     const pemString = derToPemString(publicKey, 'PUBLIC KEY')
@@ -55,8 +55,8 @@ function encrypt (data = '', publicKey = '') {
 }
 
 function decrypt (payload = '', privateKey = '') {
-  _validateExistString(payload, INVALID_RSA_DECRYPTION_DATA)
-  _validateExistString(privateKey, INVALID_RSA_DECRYPTION_KEY)
+  _validateExistString(payload, INVALID_RSA_DECRYPTION_DATA_ERROR)
+  _validateExistString(privateKey, INVALID_RSA_DECRYPTION_KEY_ERROR)
 
   try {
     const pemString = derToPemString(privateKey, 'PRIVATE KEY')

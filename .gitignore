@@ -1,5 +1,6 @@
 # Node artifact files
 node_modules/
+.npm
 
 # Log files
 *.log
@@ -12,3 +13,5 @@ Thumbs.db
 
 # Tests
 coverage/
+profile/
+reports/
