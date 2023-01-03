@@ -1,0 +1,50 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.INVALID_RSA_ENCRYPTION_KEY_ERROR = exports.INVALID_RSA_ENCRYPTION_DATA_ERROR = exports.INVALID_RSA_DECRYPTION_KEY_ERROR = exports.INVALID_RSA_DECRYPTION_DATA_ERROR = exports.INVALID_AES_KEY_STRING_LENGTH_ERROR = exports.INVALID_AES_ENCRYPTION_PARAMS_ERROR = exports.INVALID_AES_DECRYPTION_PAYLOAD_ERROR = exports.INVALID_AES_DECRYPTION_PARAMS_ERROR = void 0;
+var _CONSTANTS = require("./CONSTANTS.js");
+var {
+  KEY_STRING_LENGTH
+} = _CONSTANTS.AES_CONSTANTS;
+var INVALID_RSA_ENCRYPTION_DATA_ERROR = {
+  message: 'Provided \'data\' must be a non-empty string',
+  errorCode: 'JoseCrypto::INVALID_RSA_ENCRYPTION_DATA'
+};
+exports.INVALID_RSA_ENCRYPTION_DATA_ERROR = INVALID_RSA_ENCRYPTION_DATA_ERROR;
+var INVALID_RSA_ENCRYPTION_KEY_ERROR = {
+  message: 'Provided \'publicKey\' must be a non-empty string',
+  errorCode: 'JoseCrypto::INVALID_RSA_ENCRYPTION_KEY'
+};
+exports.INVALID_RSA_ENCRYPTION_KEY_ERROR = INVALID_RSA_ENCRYPTION_KEY_ERROR;
+var INVALID_RSA_DECRYPTION_DATA_ERROR = {
+  message: 'Provided \'payload\' or \'cipherText\' must be a non-empty string',
+  errorCode: 'JoseCrypto::INVALID_RSA_DECRYPTION_DATA'
+};
+exports.INVALID_RSA_DECRYPTION_DATA_ERROR = INVALID_RSA_DECRYPTION_DATA_ERROR;
+var INVALID_RSA_DECRYPTION_KEY_ERROR = {
+  message: 'Provided \'privateKey\' must be a non-empty string',
+  errorCode: 'JoseCrypto::INVALID_RSA_DECRYPTION_KEY'
+};
+exports.INVALID_RSA_DECRYPTION_KEY_ERROR = INVALID_RSA_DECRYPTION_KEY_ERROR;
+var INVALID_AES_ENCRYPTION_PARAMS_ERROR = {
+  message: '\'key\' must be provided',
+  errorCode: 'JosseCrypto::INVALID_AES_ENCRYPTION_PARAMS'
+};
+exports.INVALID_AES_ENCRYPTION_PARAMS_ERROR = INVALID_AES_ENCRYPTION_PARAMS_ERROR;
+var INVALID_AES_KEY_STRING_LENGTH_ERROR = {
+  message: "'key' must be of length ".concat(KEY_STRING_LENGTH),
+  errorCode: 'JosseCrypto::INVALID_AES_KEY_STRING_LENGTH'
+};
+exports.INVALID_AES_KEY_STRING_LENGTH_ERROR = INVALID_AES_KEY_STRING_LENGTH_ERROR;
+var INVALID_AES_DECRYPTION_PARAMS_ERROR = {
+  message: 'Provided \'payload\' and \'key\' must have values',
+  errorCode: 'JosseCrypto::INVALID_AES_DECRYPTION_PARAMS'
+};
+exports.INVALID_AES_DECRYPTION_PARAMS_ERROR = INVALID_AES_DECRYPTION_PARAMS_ERROR;
+var INVALID_AES_DECRYPTION_PAYLOAD_ERROR = {
+  message: 'Provided \'payload\' is of incorrect format',
+  errorCode: 'JosseCrypto::INVALID_AES_DECRYPTION_PAYLOAD'
+};
+exports.INVALID_AES_DECRYPTION_PAYLOAD_ERROR = INVALID_AES_DECRYPTION_PAYLOAD_ERROR;
