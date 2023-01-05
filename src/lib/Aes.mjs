@@ -3,10 +3,10 @@ import JoseCryptoError from '../JoseCryptoError.mjs'
 
 import { AES_CONSTANTS } from '../CONSTANTS.mjs'
 import {
-  INVALID_AES_ENCRYPTION_PARAMS,
-  INVALID_AES_KEY_STRING_LENGTH,
-  INVALID_AES_DECRYPTION_PARAMS,
-  INVALID_AES_DECRYPTION_PAYLOAD
+  INVALID_AES_ENCRYPTION_PARAMS_ERROR,
+  INVALID_AES_KEY_STRING_LENGTH_ERROR,
+  INVALID_AES_DECRYPTION_PARAMS_ERROR,
+  INVALID_AES_DECRYPTION_PAYLOAD_ERROR
 } from '../ERRORS.mjs'
 
 const {
@@ -84,24 +84,24 @@ function decrypt (payload, key) {
 
 function _validateEncryptionParams (key) {
   if (!key) {
-    throw new JoseCryptoError({}, INVALID_AES_ENCRYPTION_PARAMS)
+    throw new JoseCryptoError({}, INVALID_AES_ENCRYPTION_PARAMS_ERROR)
   }
 
   if (key.length !== KEY_STRING_LENGTH) {
-    throw new JoseCryptoError({}, INVALID_AES_ENCRYPTION_PARAMS)
+    throw new JoseCryptoError({}, INVALID_AES_ENCRYPTION_PARAMS_ERROR)
   }
 }
 
 function _validateDecryptionParams (key, payload) {
   if (!key || !payload) {
-    throw new JoseCryptoError({}, INVALID_AES_DECRYPTION_PARAMS)
+    throw new JoseCryptoError({}, INVALID_AES_DECRYPTION_PARAMS_ERROR)
   }
 
   if (key.length !== KEY_STRING_LENGTH) {
-    throw new JoseCryptoError({}, INVALID_AES_KEY_STRING_LENGTH)
+    throw new JoseCryptoError({}, INVALID_AES_KEY_STRING_LENGTH_ERROR)
   }
 
   if (payload.split(DATA_SEPARATOR).length !== 3) {
-    throw new JoseCryptoError({}, INVALID_AES_DECRYPTION_PAYLOAD)
+    throw new JoseCryptoError({}, INVALID_AES_DECRYPTION_PAYLOAD_ERROR)
   }
 }
