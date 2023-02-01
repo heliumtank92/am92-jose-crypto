@@ -23,10 +23,6 @@ export default class JoseCryptoError extends Error {
     this.message = message || eMessage || eMsg || DEFAULT_ERROR_MSG
     this.statusCode = statusCode || DEFAULT_ERROR_STATUS_CODE
     this.errorCode = errorCode || eCode || DEFAULT_ERROR_CODE
-    this.error = {
-      ...e,
-      message: eMessage || this.message,
-      errorCode: this.errorCode
-    }
+    this.error = e
   }
 }
