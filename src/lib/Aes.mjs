@@ -41,7 +41,7 @@ function encrypt (data, key = '') {
   const keyBuffer = Buffer.from(key, KEY_FORMAT)
   const ivBuffer = randomBytes(IV_LENGTH)
   const ivString = ivBuffer.toString(IV_FORMAT)
-  const stringifiedData = JSON.stringify({ data })
+  const stringifiedData = typeof data === 'string' ? data : JSON.stringify(data)
 
   try {
     const encryptor = createCipheriv(ALGORITHM, keyBuffer, ivBuffer, { authTagLength: AUTH_TAG_LENGTH })
@@ -74,8 +74,8 @@ function decrypt (payload, key) {
 
     const plainTextBuffer = Buffer.concat([decryptor.update(cipherTextBuffer), decryptor.final()])
     const plainTextString = plainTextBuffer.toString(PLAIN_TEXT_FORMAT)
-    const { data } = JSON.parse(plainTextString)
-    return data
+    const plainText = _parse(plainTextString)
+    return plainText
   } catch (error) {
     const errorCode = `JoseCrypto::AES_${error.code}`
     throw new JoseCryptoError(error, { errorCode })
@@ -103,5 +103,13 @@ function _validateDecryptionParams (key, payload) {
 
   if (payload.split(DATA_SEPARATOR).length !== 3) {
     throw new JoseCryptoError({}, INVALID_AES_DECRYPTION_PAYLOAD_ERROR)
+  }
+}
+
+function _parse (string) {
+  try {
+    return JSON.parse(string)
+  } catch (error) {
+    return string
   }
 }
