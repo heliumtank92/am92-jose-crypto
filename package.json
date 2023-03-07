@@ -1,6 +1,6 @@
 {
   "name": "@am92/jose-crypto",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "JOSE Cryptography",
   "type": "module",
   "main": "index.mjs",
