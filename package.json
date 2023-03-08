@@ -1,6 +1,6 @@
 {
   "name": "@am92/jose-crypto",
-  "version": "1.0.15",
+  "version": "1.1.0",
   "description": "JOSE Cryptography",
   "type": "module",
   "exports": {
