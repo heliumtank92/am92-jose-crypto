@@ -3,13 +3,22 @@
   "version": "1.0.15",
   "description": "JOSE Cryptography",
   "type": "module",
-  "main": "./index.mjs",
-  "module": "./index.mjs",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.mts",
+      "import": "./src/index.mjs"
+    }
+  },
+  "types": "./types/index.d.mts",
+  "module": "./src/index.mjs",
+  "main": "./src/index.mjs",
   "scripts": {
     "test": "echo 'Error: no test specified'",
+    "generate:types": "rm -rf types && npx -p typescript tsc",
     "preversion": "pnpm test",
     "version": "echo 'Versioning'",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags && npm run publish:pkg",
+    "publish:pkg": "npm publish"
   },
   "repository": "git@github.com:heliumtank92/am92-jose-crypto.git",
   "homepage": "https://github.com/heliumtank92/am92-jose-crypto#readme",
@@ -26,10 +35,9 @@
     }
   ],
   "license": "MIT",
-  "exports": {
-    ".": "./index.mjs"
+  "publishConfig": {
+    "access": "public"
   },
-  "devDependencies": {},
   "keywords": [
     "jose",
     "encryption",
