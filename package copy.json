@@ -1,7 +1,7 @@
 {
-  "name": "@am92/jose-crypto",
-  "version": "1.1.1",
-  "description": "JOSE Cryptography",
+  "name": "@am92/jose-crypto-subtle",
+  "version": "2.0.4",
+  "description": "JOSE Cryptography for Web",
   "sideEffects": false,
   "types": "dist/index.d.ts",
   "module": "dist/index.js",
@@ -21,8 +21,8 @@
     "publish:pkg": "npm publish",
     "generate:docs": "npx compodoc -p tsconfig.json"
   },
-  "repository": "git@github.com:heliumtank92/am92-jose-crypto.git",
-  "homepage": "https://heliumtank92.github.io/am92-jose-crypto",
+  "repository": "git@github.com:heliumtank92/am92-jose-crypto-subtle.git",
+  "homepage": "https://heliumtank92.github.io/am92-jose-crypto-subtle",
   "contributors": [
     {
       "name": "Ankit Gandhi",
@@ -48,7 +48,8 @@
     "aes",
     "aes256",
     "symmetric key",
-    "asymettric key"
+    "asymettric key",
+    "subtle"
   ],
   "devDependencies": {
     "@babel/plugin-proposal-private-methods": "^7.18.6",

@@ -16,3 +16,7 @@ coverage/
 profile/
 reports/
 tests/
+
+# Documentation
+docs/
+.compodocrc.json
