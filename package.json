@@ -1,6 +1,6 @@
 {
   "name": "@am92/jose-crypto",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "JOSE Cryptography",
   "sideEffects": false,
   "types": "dist/index.d.ts",
