@@ -1,6 +1,6 @@
 {
   "name": "@am92/jose-crypto",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "JOSE Cryptography",
   "sideEffects": false,
   "types": "dist/index.d.ts",
@@ -15,8 +15,8 @@
     "build:clean": "rm -rf ./dist",
     "build": "npm-run-all build:clean compile",
     "test": "echo 'Error: no test specified'",
-    "preversion": "npm-run-all build test generate:docs commit:docs",
-    "version": "echo 'Versioning'",
+    "preversion": "npm-run-all build test",
+    "version": "npm-run-all generate:docs commit:docs",
     "postversion": "git push && git push --tags && npm run publish:pkg",
     "publish:pkg": "npm publish",
     "generate:docs": "npx compodoc -p tsconfig.json",
