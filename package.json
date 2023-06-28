@@ -44,11 +44,8 @@
     "encryption",
     "decryption",
     "rsa",
-    "rsa2048",
     "aes",
-    "aes256",
-    "symmetric key",
-    "asymettric key"
+    "aes256gcm"
   ],
   "devDependencies": {
     "@babel/plugin-proposal-private-methods": "^7.18.6",
