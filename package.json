@@ -15,11 +15,12 @@
     "build:clean": "rm -rf ./dist",
     "build": "npm-run-all build:clean compile",
     "test": "echo 'Error: no test specified'",
-    "preversion": "npm-run-all build test",
+    "preversion": "npm-run-all build test generate:docs commit:docs",
     "version": "echo 'Versioning'",
     "postversion": "git push && git push --tags && npm run publish:pkg",
     "publish:pkg": "npm publish",
-    "generate:docs": "npx compodoc -p tsconfig.json"
+    "generate:docs": "npx compodoc -p tsconfig.json",
+    "commit:docs": "git add docs && git commit -m 'Docs Updated'"
   },
   "repository": "git@github.com:heliumtank92/am92-jose-crypto.git",
   "homepage": "https://heliumtank92.github.io/am92-jose-crypto",
