@@ -19,7 +19,6 @@ export default class JoseCrypto {
   /**
    * Function to encrypt AES-256-GCM key using `RSA-OAEP` public key.
    *
-   * @
    * <b>Throws :</b> {@link JoseCryptoError}. Expected error codes :
    * - JoseCrypto::ENCRYPT_KEY_AES_KEY_REQUIRED
    * - JoseCrypto::ENCRYPT_KEY_RSA_KEY_REQUIRED
