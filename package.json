@@ -1,27 +1,29 @@
 {
   "name": "@am92/jose-crypto",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "JOSE Cryptography",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./types/index.d.mts",
-      "import": "./src/index.mjs"
-    }
-  },
-  "types": "./types/index.d.mts",
-  "module": "./src/index.mjs",
-  "main": "./src/index.mjs",
+  "sideEffects": false,
+  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts"
+  ],
   "scripts": {
+    "compile": "tsc",
+    "build:clean": "rm -rf ./dist",
+    "build": "npm-run-all build:clean compile",
     "test": "echo 'Error: no test specified'",
-    "generate:types": "rm -rf types && npx -p typescript tsc",
-    "preversion": "pnpm test",
+    "preversion": "npm-run-all build test generate:docs commit:docs",
     "version": "echo 'Versioning'",
     "postversion": "git push && git push --tags && npm run publish:pkg",
-    "publish:pkg": "npm publish"
+    "publish:pkg": "npm publish",
+    "generate:docs": "npx compodoc -p tsconfig.json",
+    "commit:docs": "git add docs && git commit -m 'Docs Updated'"
   },
   "repository": "git@github.com:heliumtank92/am92-jose-crypto.git",
-  "homepage": "https://github.com/heliumtank92/am92-jose-crypto#readme",
+  "homepage": "https://heliumtank92.github.io/am92-jose-crypto",
   "contributors": [
     {
       "name": "Ankit Gandhi",
@@ -43,10 +45,14 @@
     "encryption",
     "decryption",
     "rsa",
-    "rsa2048",
     "aes",
-    "aes256",
-    "symmetric key",
-    "asymettric key"
-  ]
+    "aes256gcm"
+  ],
+  "devDependencies": {
+    "@babel/plugin-proposal-private-methods": "^7.18.6",
+    "@compodoc/compodoc": "^1.1.21",
+    "@types/node": "^20.3.2",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.1.3"
+  }
 }
