@@ -1,9 +1,20 @@
 /**
- * Type defination for the keys returned from generateAndWrapKey function
+ * Type defination for error map to be passed to JoseCryptoErrorMap.
  *
- * @typedef {JoseCryptoKeyObj}
+ * @interface
+ * @typedef {JoseCryptoErrorMap}
  */
-export type JoseCryptoKeyObj = {
-  encryptionKey: CryptoKey
-  encryptedEncryptionKey: string
+export interface JoseCryptoErrorMap {
+  /**
+   * Overriding message string for JoseCryptoError instance
+   */
+  message?: string
+  /**
+   * Overriding error code string for JoseCryptoError instance
+   */
+  errorCode?: string
+  /**
+   * Overriding HTTP status code for JoseCryptoError instance
+   */
+  statusCode?: number
 }

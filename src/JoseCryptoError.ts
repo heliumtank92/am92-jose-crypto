@@ -1,4 +1,5 @@
-import { SERVICE } from './CONFIG.mjs'
+import { SERVICE } from './CONFIG'
+import { JoseCryptoErrorMap } from './TYPES'
 
 /** @ignore */
 const DEFAULT_ERROR_MSG = 'Jose Crypto Error'
@@ -20,13 +21,13 @@ export default class JoseCryptoError extends Error {
    */
   readonly _isCustomError = true
   /**
-   * Flag to identoify if error is a JoseCryptoSubtleError.
+   * Flag to identify if error is a JoseCryptoError.
    */
   readonly _isJoseCryptoError = true
   /**
    * Node project from which Error is thrown.
    */
-  service: string = SERVICE
+  readonly service: string
   /**
    * Error's message string.
    */
@@ -44,26 +45,19 @@ export default class JoseCryptoError extends Error {
    */
   error?: any
   /**
-   * Creates an instance of JoseCryptoSubtleError.
+   * Creates an instance of JoseCryptoError.
    *
    * @constructor
-   * @param [e] DOMException instance to wrap with JoseCryptoSubtleError.
-   * @param [eMap] JoseCryptoSubtleErrorMap to rewrap error for better understanding.
+   * @param [e] DOMException instance to wrap with JoseCryptoError.
+   * @param [eMap] JoseCryptoErrorMap to rewrap error for better understanding.
    */
-  constructor(e = {}, eMap) {
-    if (e._isCustomError && !eMap) {
-      return e
-    }
-
+  constructor(e: any, eMap: JoseCryptoErrorMap) {
     super()
 
-    const { message, statusCode, errorCode } = eMap || {}
-    const { message: eMessage, msg: eMsg, code: eCode } = e
-
     this.service = SERVICE
-    this.message = message || eMessage || eMsg || DEFAULT_ERROR_MSG
-    this.statusCode = statusCode || DEFAULT_ERROR_STATUS_CODE
-    this.errorCode = errorCode || eCode || DEFAULT_ERROR_CODE
+    this.message = eMap?.message || e?.message || DEFAULT_ERROR_MSG
+    this.statusCode = eMap?.statusCode || DEFAULT_ERROR_STATUS_CODE
+    this.errorCode = eMap?.errorCode || e?.code || DEFAULT_ERROR_CODE
     this.error = e
   }
 }
