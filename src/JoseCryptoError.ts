@@ -51,7 +51,7 @@ export default class JoseCryptoError extends Error {
    * @param [e] Any Error instance to wrap with JoseCryptoError.
    * @param [eMap] JoseCryptoErrorMap to rewrap error for better understanding.
    */
-  constructor(e: any, eMap: JoseCryptoErrorMap) {
+  constructor(e?: any, eMap?: JoseCryptoErrorMap) {
     super()
 
     this.service = SERVICE
