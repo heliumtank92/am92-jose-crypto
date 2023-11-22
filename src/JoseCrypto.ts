@@ -1,5 +1,5 @@
 import crypto, { RsaPrivateKey } from 'crypto'
-import JoseCryptoError from './JoseCryptoError'
+import { JoseCryptoError } from './JoseCryptoError'
 import {
   validateDecryptDataKey,
   validateDecryptDataPayload,
@@ -15,7 +15,7 @@ import { derToPem, jsonParse } from './utils'
  * @class
  * @typedef {JoseCrypto}
  */
-export default class JoseCrypto {
+export class JoseCrypto {
   /**
    * Function to encrypt AES-256-GCM key using `RSA-OAEP` public key.
    *

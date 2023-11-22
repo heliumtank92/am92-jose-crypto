@@ -1,4 +1,4 @@
-import JoseCryptoError from './JoseCryptoError'
+import { JoseCryptoError } from './JoseCryptoError'
 import {
   DECRYPT_DATA_AES_KEY_REQUIRED_ERROR,
   DECRYPT_DATA_INVALID_AES_KEY_ERROR,
