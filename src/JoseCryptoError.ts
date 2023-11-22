@@ -15,7 +15,7 @@ const DEFAULT_ERROR_CODE = 'JoseCrypto::GENERIC'
  * @typedef {JoseCryptoError}
  * @extends {Error}
  */
-export default class JoseCryptoError extends Error {
+export class JoseCryptoError extends Error {
   /**
    * Flag to identify if error is a custom error.
    */
